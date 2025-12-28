@@ -22,21 +22,20 @@ jobs:
         arch: 'win64_msvc2022_64'
         install-deps: 'true'
 
-    - name: Setup MSVC environment
-      run: |
-        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2  
 
     - name: Build project
       run: |
         mkdir build
         cd build
-        qmake ../tiktaktoe.pro
+        qmake ../tictactoe.pro  # Исправленное имя файла (tictactoe.pro, как в твоём ls)
         nmake Release
 
     - name: Deploy Qt dependencies
       run: |
         cd build/release
-        windeployqt tiktaktoe.exe
+        windeployqt tictactoe.exe  # Имя .exe без 'k'
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
