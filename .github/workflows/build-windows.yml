@@ -23,19 +23,22 @@ jobs:
         install-deps: 'true'
 
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2  
+      uses: microsoft/setup-msbuild@v2
 
     - name: Build project
+      shell: cmd  # Используем cmd для лучшей совместимости с MSVC
       run: |
         mkdir build
         cd build
-        qmake ../tictactoe.pro  # Исправленное имя файла (tictactoe.pro, как в твоём ls)
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+        qmake ../tictactoe.pro
         nmake Release
 
     - name: Deploy Qt dependencies
+      shell: cmd
       run: |
         cd build/release
-        windeployqt tictactoe.exe  # Имя .exe без 'k'
+        windeployqt tictactoe.exe
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
