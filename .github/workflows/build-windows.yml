@@ -21,7 +21,6 @@ jobs:
         target: 'desktop'
         arch: 'win64_msvc2022_64'
         install-deps: 'true'
-        tools: 'tools_jom'  # Добавляем jom
 
     - name: Setup Visual Studio shell
       uses: ilammy/msvc-dev-cmd@v1
@@ -30,8 +29,9 @@ jobs:
       run: |
         mkdir build
         cd build
+        $env:QMAKE_MSC_VER = "1930"  # Явно задаём для MSVC2022
         qmake ../tictactoe.pro
-        jom Release  # jom вместо nmake — работает без проблем с переменными
+        nmake Release
 
     - name: Deploy Qt dependencies
       run: |
