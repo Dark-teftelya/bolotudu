@@ -20,7 +20,11 @@ jobs:
         host: 'windows'
         target: 'desktop'
         arch: 'win64_msvc2022_64'
-        install-deps: 'true'  # Устанавливает нужные Visual Studio компоненты
+        install-deps: 'true'
+
+    - name: Setup MSVC environment
+      run: |
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
 
     - name: Build project
       run: |
