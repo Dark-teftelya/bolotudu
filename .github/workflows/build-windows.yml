@@ -19,14 +19,15 @@ jobs:
         version: '6.8.0'
         host: 'windows'
         target: 'desktop'
-        arch: 'win64_msvc2019_64'
+        arch: 'win64_msvc2022_64'
+        install-deps: 'true'  # Устанавливает нужные Visual Studio компоненты
 
     - name: Build project
       run: |
         mkdir build
         cd build
         qmake ../tiktaktoe.pro
-        nmake
+        nmake Release
 
     - name: Deploy Qt dependencies
       run: |
@@ -36,5 +37,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Bolotudu-Windows-EXE
+        name: Bolotudu-Windows
         path: build/release/*
