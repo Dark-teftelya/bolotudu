@@ -1,0 +1,40 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.8.0'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+
+    - name: Build project
+      run: |
+        mkdir build
+        cd build
+        qmake ../tiktaktoe.pro
+        nmake
+
+    - name: Deploy Qt dependencies
+      run: |
+        cd build/release
+        windeployqt tiktaktoe.exe
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Bolotudu-Windows-EXE
+        path: build/release/*
