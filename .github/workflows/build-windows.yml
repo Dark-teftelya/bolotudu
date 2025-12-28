@@ -21,16 +21,17 @@ jobs:
         target: 'desktop'
         arch: 'win64_msvc2022_64'
         install-deps: 'true'
+        tools: 'tools_jom'  # Добавляем jom
 
     - name: Setup Visual Studio shell
-      uses: ilammy/msvc-dev-cmd@v1  # Это действие правильно настраивает MSVC, включая все переменные для qmake
+      uses: ilammy/msvc-dev-cmd@v1
 
     - name: Build project
       run: |
         mkdir build
         cd build
         qmake ../tictactoe.pro
-        nmake Release
+        jom Release  # jom вместо nmake — работает без проблем с переменными
 
     - name: Deploy Qt dependencies
       run: |
