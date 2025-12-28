@@ -76,22 +76,19 @@ void MainWindow::choiceWindow()
     mainLayout->setContentsMargins(30, 30, 30, 30);
     mainLayout->setSpacing(20);
 
-    // Заголовок
     QLabel *title = new QLabel("Выберите режим игры");
     title->setAlignment(Qt::AlignCenter);
     title->setStyleSheet("font-size: 28px; font-weight: bold; color: #00FFFF;");
     mainLayout->addWidget(title);
 
-    // Горизонтальный layout: гифка слева + кнопка ОК справа
     QHBoxLayout *gifAndOkLayout = new QHBoxLayout();
     gifAndOkLayout->setSpacing(40);
 
-    // Гифка
     QLabel *gifLabel = new QLabel();
     gifLabel->setFixedSize(498, 422);
     gifLabel->setAlignment(Qt::AlignCenter);
 
-    QMovie *movie = new QMovie(":/coin.gif");  // Через resources — обязательно!
+    QMovie *movie = new QMovie(":/coin.gif");  
     if (movie->isValid()) {
         gifLabel->setMovie(movie);
         movie->start();
@@ -100,14 +97,14 @@ void MainWindow::choiceWindow()
     }
     gifAndOkLayout->addWidget(gifLabel);
 
-    // Кнопка ОК с неоновым свечением
+   
     QPushButton *okButton = new QPushButton("ОК");
     okButton->setFixedSize(150, 150);
     okButton->setStyleSheet(
         "QPushButton {"
         "    font-size: 36px;"
         "    font-weight: bold;"
-        "    color: #00FFFF;"           // Циановый текст
+        "    color: #00FFFF;"          
         "    background-color: rgba(0, 0, 0, 100);"
         "    border: 3px solid #00FFFF;"
         "    border-radius: 75px;"
@@ -115,7 +112,7 @@ void MainWindow::choiceWindow()
         "QPushButton:pressed {"
         "    background-color: rgba(0, 255, 255, 50);"
         "}"
-        // Неоновое свечение
+      
         "QPushButton {"
         "    text-shadow:"
         "        0 0 10px #00FFFF,"
@@ -129,7 +126,6 @@ void MainWindow::choiceWindow()
     gifAndOkLayout->addWidget(okButton);
     mainLayout->addLayout(gifAndOkLayout);
 
-    // Радиокнопки
     QRadioButton *radio1 = new QRadioButton("С ботом");
     QRadioButton *radio2 = new QRadioButton("С игроком");
     radio1->setStyleSheet("font-size: 18px;");
@@ -139,7 +135,6 @@ void MainWindow::choiceWindow()
     mainLayout->addWidget(radio1);
     mainLayout->addWidget(radio2);
 
-    // Правила (как раньше)
     QLabel *rulesTitle = new QLabel("Правила");
     rulesTitle->setAlignment(Qt::AlignCenter);
     rulesTitle->setStyleSheet(
@@ -337,11 +332,6 @@ void MainWindow::on_btnLoad_clicked()
     qDebug() << "Игра успешно загружена из" << filePath;
 }
 
-// void MainWindow::on_btnReset_clicked()
-// {
-//     reset();
-//     update();
-// }
 
 void MainWindow::on_btnReset_clicked()
 {
@@ -355,6 +345,6 @@ void MainWindow::on_btnReset_clicked()
     if (reply == QMessageBox::Yes) {
         reset();         
     } else {
-        choiceWindow();  /
+        choiceWindow(); 
     }
 }
